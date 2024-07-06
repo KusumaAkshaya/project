@@ -1,10 +1,10 @@
 const state = {
     scores:{
         player1: 0 ,
-        player2: 0
+        player2: 0 ,
     },
     squares: Array(9).fill(null),
-    xIsNext: true
+    xIsNext: true 
 };
 
 function calWinner(squares){
@@ -25,17 +25,15 @@ function calWinner(squares){
        const [a, b, c] = winning_lines[i];
        if(squares[a] && squares[a] === squares[b] && squares[b] === squares[c]){
           showWinner(squares[a])
-          setTimeout( () => resetBoard(), 1000)
+          setTimeout(() => resetBoard(squares[a]), 1000)
           return squares[a];
         } }
 
         if(!squares.includes(null)){
             showWinner(null);
-            setTimeout( () => resetBoard(), 1000 )
+            setTimeout( resetBoard(null), 1000 )
             return null;
         }
-    
-
 }
 
 
@@ -44,36 +42,40 @@ function resetBoard(winner)
    if(winner){
     if(winner === 'X')
     {
-       state.scores.player1++ ;
+       state.scores.player1++;
     }
     else {
-       state.scores.player2++ ;
+       state.scores.player2++;
     }
    }
    state.squares = Array(9).fill(null);
-   document.getElementById("player1").text(state.scores.player1);
-   document.getElementById("player2").text(state.scores.player2);
+   state.xIsNext = true;
+   document.getElementById("player1").innerHTML= state.scores.player1;
+   document.getElementById("player2").innerHTML = state.scores.player2;
    renderBoard();
 }
 
 function showWinner(winner){
- const alert_box = document.getElementById("alert-box")
+ const alert_box = document.getElementById("alert-box") 
  if(winner){
-    if(winner === 'X'){ winner = "player1 "}
-    else { winner = "player2"}
+    if(winner === 'X'){ winner = "player1" ;}
+    else { winner = "player2" ;}
  
-alert_box.html(' ${winner} is <strong> Won! </strong>') 
+$(alert_box).html(`${winner} is <strong> Won! </strong>`) 
  }
 else{
- alert_box.html('It`s a Draw')
-}
- alert_box.slideDown()
- setTimeout( () => alert_box.slideUp() , 1000 );
+ $(alert_box).html(`Its a Draw`)            
 }
 
+ $("#alert-box").slideDown("slow")
+ setTimeout( () => $("#alert-box").slideUp() , 1000 );
+}
+
+
+
 function renderSquare(index){
-   const val=state.squares[index] ? state.squares[index] : "&nbsp"
-   return '<div> value=${index} class="box col-lg-4 col-md-4 col-sm-4 col-xs-4" onclick="boxClick(${index})">$(val)</div>'
+   const val = state.squares[index] ? state.squares[index] : "&nbsp;"
+   return `<div value="${index}" style="width: 33%" class="box" onclick="boxClick(${index})"> ${val} </div>`
 }
 
 function renderBoard(){
@@ -81,7 +83,7 @@ function renderBoard(){
    for( let i=0; i<9; i++){
       board_html += renderSquare(i) ;
    }
-   $("#board").html(board_html);
+  document.getElementById("board").innerHTML = board_html ;
    calWinner(state.squares);
 }
 
@@ -99,14 +101,19 @@ function boxClick(index){
 }
 
 function resetGame(){
-   state.scores.player1 = 0
-   state.scores.player2 = 0
+   state.scores.player1 = 0 
+   state.scores.player2 = 0 
+   state.xIsNext = true ;  // Reset xIsNext to true
    resetBoard(null) ;
 }
 
 $(() => {
    renderBoard();
-   document.getElementById("alert-box").slideUp(0.0001) ;
+   $("#alert-box").slideUp(0.0001) ;
    $("#clear").on("click", () =>resetBoard(null))
    $("#reset").on("click", () => resetGame())
 })
+
+$(document).ready(function(){
+   renderBoard();
+ });
