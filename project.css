@@ -1,0 +1,36 @@
+html, body{
+    min-height: 100vh;
+}
+
+html{
+    display: flex;
+    flex-direction: column;
+}
+.container-fluid{
+    flex: 1 0 auto;
+}
+.main-box{
+    margin-top: -5px;
+    width: 500px;
+  /*  box-shadow: 1px 1px 20px 4px #cccccc, -1px -1px 20px 5px #cccccc;  */
+    display: flex;
+    flex-direction: column; 
+}
+
+footer{
+    margin-top: 20px;
+    flex-shrink: 0;
+    padding: 20px 0;
+    color: #ffffff;
+    background-color: rgba(34,39,39,0.9);
+    font-size:1.15rem;
+}
+
+.box{
+    background-color: #ebebeb;
+    font-size: 500%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid #585858;
+}
