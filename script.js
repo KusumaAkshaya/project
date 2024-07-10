@@ -75,7 +75,7 @@ else{
 
 function renderSquare(index){
    const val = state.squares[index] ? state.squares[index] : "&nbsp;"
-   return `<div value="${index}" style="width: 33%" class="box" onclick="boxClick(${index})"> ${val} </div>`
+   return `<div value="${index}" class="box col-4" onclick="boxClick(${index})"> ${val} </div>`
 }
 
 function renderBoard(){
